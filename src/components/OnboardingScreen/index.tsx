@@ -11,12 +11,10 @@ interface OnboardingProps {
 const OnboardingScreen: React.FC<OnboardingProps> = ({ bgColor, img, children }) => {
     return (
         <>
-            <View style={[styles.header, { backgroundColor: bgColor } ]}>
+            <View style={[styles.header, { backgroundColor: bgColor }]}>
                 {img}
             </View>
-            <View style={styles.body}>
-                {children}
-            </View>
+            {children}
         </>
     );
 }

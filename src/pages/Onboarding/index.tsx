@@ -34,11 +34,15 @@ const Onboarding = () => {
                 <OnboardingScreen
                     bgColor="#8257E5"
                     img={(
-                        <Image source={book} style={[styles.headerImg, {marginTop: -30}]} resizeMode="contain" />
+                        <Image source={book} style={styles.headerImg} resizeMode="contain" />
                     )}
                 >
-                    <Text>01.</Text>
-                    <Text>Encontre vários professores para ensinar você</Text>
+                    
+                    <View style={styles.body}>                        
+                        <Text style={styles.title}>01.</Text>
+                        <Text style={styles.text}>Encontre vários professores para ensinar você</Text>
+                    </View>
+
                 </OnboardingScreen>
                 <OnboardingScreen
                     bgColor="#04D361"
@@ -46,8 +50,12 @@ const Onboarding = () => {
                         <Image source={classes} style={styles.headerImg} resizeMode="contain" />
                     )}
                 >
-                    <Text>01.</Text>
-                    <Text>Ou dê aulas sobre o que você mais conhece</Text>
+                    
+                    <View style={styles.body}>                        
+                        <Text style={styles.title}>02.</Text>
+                        <Text style={styles.text}>Ou dê aulas sobre o que você mais conhece</Text>
+                    </View>
+
                 </OnboardingScreen>
 
             </Swiper>
