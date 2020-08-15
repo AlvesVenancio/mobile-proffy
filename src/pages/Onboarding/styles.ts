@@ -24,6 +24,12 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color: '#6A6180',
     },
+    nextButton: {
+        alignItems: 'flex-end',
+        flex: 1,
+        justifyContent: 'center',
+        paddingHorizontal: 25,
+    },
 });
 
 export default styles;
