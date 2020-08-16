@@ -24,11 +24,24 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color: '#6A6180',
     },
-    nextButton: {
+    paginationStyle: {
+        justifyContent: 'flex-start',
+        paddingHorizontal: 40,
+    },
+    dotStyle: {
+        backgroundColor: '#c1bccc',
+        borderRadius: 1,
+        height: 4,
+        width: 4,
+    },
+    activeDotStyle: {
+        backgroundColor: '#8257E5',
+        borderRadius: 1,
+        height: 4,
+        width: 4,
+    },
+    buttonWrapperStyle: {
         alignItems: 'flex-end',
-        flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: 25,
     },
 });
 
