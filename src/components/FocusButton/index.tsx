@@ -8,11 +8,12 @@ interface FocusButtonProps{
     text: string;
     bgColor: string;
     textColor: string;
+    onPress: (pointerInside: boolean) => void;
 };
 
-const FocusButton: React.FC<FocusButtonProps> = ({ text, bgColor, textColor }) => {
+const FocusButton: React.FC<FocusButtonProps> = ({ text, bgColor, textColor, onPress }) => {
     return (
-        <RectButton style={[styles.loginButton, { backgroundColor: bgColor}]}>
+        <RectButton style={[styles.loginButton, { backgroundColor: bgColor}]} onPress={onPress}>
             <Text style={[styles.loginButtonText, { color: textColor }]}>{ text }</Text>
         </RectButton>
     );
