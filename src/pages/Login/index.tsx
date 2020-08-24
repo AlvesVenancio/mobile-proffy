@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Image, Text, TextInput, ScrollView, Keyboard } from 'react-native';
-import { BorderlessButton } from 'react-native-gesture-handler';
+import { View, Image, Text, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Onboarding from '../../components/Onboarding';
 import FocusButton from '../../components/FocusButton';
 import CheckBoxStyled from '../../components/CheckBoxStyled';
+import TextField from '../../components/TextField';
 
 import login from '../../assets/images/login.png';
 
@@ -14,10 +14,12 @@ import styles from './styles';
 const Login = () => {
 
     const scroll = useRef() as React.RefObject<ScrollView>;
-    
+
     const [firstLaunch, setFirstLaunch] = useState<boolean>();
     const [email, setEmail] = useState<string>();
+    const [emailFocus, setEmailFocus] = useState<boolean>(false);
     const [pass, setPass] = useState<string>();
+    const [passFocus, setPassFocus] = useState<boolean>(false);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
 
     useEffect(() => {
@@ -33,9 +35,9 @@ const Login = () => {
 
     useEffect(() => {
         Keyboard.addListener("keyboardDidShow",
-            () => {scroll.current && scroll.current.scrollToEnd()}
+            () => { scroll.current && scroll.current.scrollToEnd() }
         );
-    },[])
+    }, [])
 
     const handleCheck = () => {
         rememberMe ? setRememberMe(false) : setRememberMe(true);
@@ -54,44 +56,47 @@ const Login = () => {
                 <ScrollView style={styles.loginForm}>
                     <View style={styles.titleAndCreateBlock}>
                         <Text style={styles.title}>Fazer login</Text>
-                        <BorderlessButton>
+                        <TouchableWithoutFeedback>
                             <Text style={styles.createAccountButtonText}>Criar uma conta</Text>
-                        </BorderlessButton>
+                        </TouchableWithoutFeedback>
                     </View>
                     <View style={styles.inputsBlock}>
-                        <TextInput
-                            placeholder="E-mail"
-                            style={[styles.input, styles.inputEmail]}
-                            textContentType='username'
+                        <TextField
+                            style={styles.inputEmail}
+                            label="E-mail"
+                            focus={emailFocus}
                             value={email}
                             onChangeText={text => setEmail(text)}
                             keyboardType="email-address"
-                        >
-
-                        </TextInput>
-                        <TextInput
-                            placeholder="Senha"
-                            style={[styles.input, styles.inputPass]}
-                            textContentType='password'
+                            onFocus={() => setEmailFocus(true)}
+                            onBlur={() => !email && setEmailFocus(false)}
+                        />
+                        <TextField
+                            style={styles.inputPass}
+                            label="Senha"
+                            focus={passFocus}
                             value={pass}
                             onChangeText={text => setPass(text)}
+                            secureTextEntry={true}
+                            onFocus={() => setPassFocus(true)}
+                            onBlur={() => !pass && setPassFocus(false)}
                         />
                     </View>
                     <View style={styles.rememberAndPassBlock}>
-                        <BorderlessButton
-                            style={styles.checkboxBlock}
+                        <CheckBoxStyled
+                            check={rememberMe}
+                            text="Lembrar-me"
                             onPress={handleCheck}
-                        >
-                            <CheckBoxStyled check={rememberMe} text="Lembrar-me" />
-                        </BorderlessButton>
-                        <BorderlessButton>
+                        />
+                        <TouchableWithoutFeedback>
                             <Text style={styles.forgetPassButtonText}>Esqueci minha senha</Text>
-                        </BorderlessButton>
+                        </TouchableWithoutFeedback>
                     </View>
                     <FocusButton
                         text="Entrar"
                         bgColor={email && pass ? '#04D361' : '#DCDCE5'}
                         textColor={email && pass ? '#FFF' : '#9C98A6'}
+                        onPress={() => { console.log('oi') }}
                     />
                 </ScrollView>
             </ScrollView>

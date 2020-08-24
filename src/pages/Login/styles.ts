@@ -36,48 +36,21 @@ const styles = StyleSheet.create({
     },
     inputsBlock: {
         marginBottom: 10,
-    },
-    input: {
-        backgroundColor: '#FAFAFC',
-        borderWidth: 1,
-        borderColor: '#E6E6F0',
-        color: '#6A6180',
-        fontSize: 12,
-        padding: 14,
-
-    },
+    },    
     inputEmail: {
         borderBottomWidth: 0,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
     },
     inputPass: {
-        borderBottomLeftRadius: 8,
-        borderBottomRightRadius: 8,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
     },
     rememberAndPassBlock: {
         marginBottom: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-    },
-    checkboxBlock: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    checkBox: {
-        width: 20,
-        height: 20,
-        borderRadius: 7,
-        backgroundColor: '#FFF',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    checkboxText: {
-        color: '#9C98A6',
-        fontSize: 12,
-        fontFamily: 'Poppins_400Regular',
-        marginLeft: 8,
     },
     forgetPassButtonText: {
         color: '#9C98A6',
