@@ -19,6 +19,7 @@ const Login = () => {
     const [email, setEmail] = useState<string>();
     const [emailFocus, setEmailFocus] = useState<boolean>(false);
     const [pass, setPass] = useState<string>();
+    const [seeHidePass, setSeeHidePass] = useState<boolean>();
     const [passFocus, setPassFocus] = useState<boolean>(false);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
 
@@ -77,7 +78,8 @@ const Login = () => {
                             focus={passFocus}
                             value={pass}
                             onChangeText={text => setPass(text)}
-                            secureTextEntry={true}
+                            secureTextEntry={seeHidePass}
+                            seeHidePass={() => seeHidePass? setSeeHidePass(false): setSeeHidePass(true)}
                             onFocus={() => setPassFocus(true)}
                             onBlur={() => !pass && setPassFocus(false)}
                         />
@@ -96,7 +98,6 @@ const Login = () => {
                         text="Entrar"
                         bgColor={email && pass ? '#04D361' : '#DCDCE5'}
                         textColor={email && pass ? '#FFF' : '#9C98A6'}
-                        onPress={() => { console.log('oi') }}
                     />
                 </ScrollView>
             </ScrollView>

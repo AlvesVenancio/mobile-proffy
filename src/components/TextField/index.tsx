@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { View, Text, TextInput, NativeSyntheticEvent, TextInputFocusEventData, StyleProp, TextStyle } from 'react-native';
+import { View, Text, TextInput, Image, NativeSyntheticEvent, TextInputFocusEventData, StyleProp, TextStyle, TouchableWithoutFeedback, GestureResponderEvent } from 'react-native';
+
+import seePassword from '../../assets/images/icons/see-password.png';
+import hidePassword from '../../assets/images/icons/hide-password.png';
 
 import styles from './styles';
 
@@ -14,9 +17,10 @@ interface TextFieldProps {
     onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
     onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
     secureTextEntry?: boolean;
+    seeHidePass?: (event: GestureResponderEvent) => void;
 }
 
-const TextField: React.FC<TextFieldProps> = ({ style, label, focus, value, onChangeText, onFocus, onBlur, keyboardType, secureTextEntry }) => {
+const TextField: React.FC<TextFieldProps> = ({ style, label, focus, value, onChangeText, onFocus, onBlur, keyboardType, secureTextEntry, seeHidePass }) => {
     return (
         <View style={[styles.container, style,]}>
             <Text
@@ -37,6 +41,21 @@ const TextField: React.FC<TextFieldProps> = ({ style, label, focus, value, onCha
                 onBlur={onBlur}
                 secureTextEntry={secureTextEntry}
             />
+            {secureTextEntry != undefined &&
+                <TouchableWithoutFeedback
+                    onPress={seeHidePass}
+                    >
+                    <Image
+                        style={styles.seeHidePass}
+                        source={
+                            secureTextEntry == true
+                                ? seePassword
+                                : hidePassword
+                        }
+                        resizeMode="center"
+                    />
+                </TouchableWithoutFeedback>
+            }
         </View>
     );
 }

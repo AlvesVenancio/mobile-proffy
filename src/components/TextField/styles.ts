@@ -38,6 +38,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#8257E7',
         borderRadius: 100,
     },
+    seeHidePass: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        width: 24,
+        paddingRight: 55,
+        height: 60,
+    }
 });
 
 export default styles;
