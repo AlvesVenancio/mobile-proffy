@@ -8,7 +8,7 @@ interface FocusButtonProps{
     text: string;
     bgColor: string;
     textColor: string;
-    onPress: (pointerInside: boolean) => void;
+    onPress?: (pointerInside: boolean) => void;
 };
 
 const FocusButton: React.FC<FocusButtonProps> = ({ text, bgColor, textColor, onPress }) => {
