@@ -19,7 +19,7 @@ const Login = () => {
     const [email, setEmail] = useState<string>();
     const [emailFocus, setEmailFocus] = useState<boolean>(false);
     const [pass, setPass] = useState<string>();
-    const [seeHidePass, setSeeHidePass] = useState<boolean>();
+    const [seeHidePass, setSeeHidePass] = useState<boolean>(true);
     const [passFocus, setPassFocus] = useState<boolean>(false);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
 
@@ -70,7 +70,7 @@ const Login = () => {
                             onChangeText={text => setEmail(text)}
                             keyboardType="email-address"
                             onFocus={() => setEmailFocus(true)}
-                            onBlur={() => !email && setEmailFocus(false)}
+                            onBlur={() => setEmailFocus(false)}
                         />
                         <TextField
                             style={styles.inputPass}
@@ -81,7 +81,7 @@ const Login = () => {
                             secureTextEntry={seeHidePass}
                             seeHidePass={() => seeHidePass? setSeeHidePass(false): setSeeHidePass(true)}
                             onFocus={() => setPassFocus(true)}
-                            onBlur={() => !pass && setPassFocus(false)}
+                            onBlur={() => setPassFocus(false)}
                         />
                     </View>
                     <View style={styles.rememberAndPassBlock}>

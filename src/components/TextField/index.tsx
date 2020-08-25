@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Text, TextInput, Image, NativeSyntheticEvent, TextInputFocusEventData, StyleProp, TextStyle, TouchableWithoutFeedback, GestureResponderEvent } from 'react-native';
+import { View, Text, TextInput, Image, StyleProp, TextStyle, TouchableWithoutFeedback } from 'react-native';
 
 import seePassword from '../../assets/images/icons/see-password.png';
 import hidePassword from '../../assets/images/icons/hide-password.png';
@@ -14,26 +14,27 @@ interface TextFieldProps {
     keyboardType?: "default" | "email-address" | "numeric" | "phone-pad" | "number-pad" | "decimal-pad" | "visible-password" | "ascii-capable" | "numbers-and-punctuation" | "url" | "name-phone-pad" | "twitter" | "web-search" | undefined;
     value: string | undefined;
     onChangeText?: (text: string) => void;
-    onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-    onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+    onFocus?: () => void;
+    onBlur?: () => void;
     secureTextEntry?: boolean;
-    seeHidePass?: (event: GestureResponderEvent) => void;
+    seeHidePass?: () => void;
 }
 
 const TextField: React.FC<TextFieldProps> = ({ style, label, focus, value, onChangeText, onFocus, onBlur, keyboardType, secureTextEntry, seeHidePass }) => {
+    
     return (
-        <View style={[styles.container, style,]}>
+        <View style={[styles.container, style]}>
             <Text
                 style={[
                     styles.placeHolder,
-                    focus && styles.placeHolderFocus
+                    focus || value ? styles.placeHolderFocus : {}
                 ]}
             >
                 {label}
             </Text>
             {focus && <View style={styles.dash} />}
             <TextInput
-                style={[styles.input, focus && styles.inputFocus]}
+                style={[styles.input, focus || value ? styles.inputFocus : {}]}
                 value={value}
                 onChangeText={onChangeText}
                 keyboardType={keyboardType}
@@ -44,7 +45,7 @@ const TextField: React.FC<TextFieldProps> = ({ style, label, focus, value, onCha
             {secureTextEntry != undefined &&
                 <TouchableWithoutFeedback
                     onPress={seeHidePass}
-                    >
+                >
                     <Image
                         style={styles.seeHidePass}
                         source={
