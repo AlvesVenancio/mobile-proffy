@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, Text, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 import Onboarding from '../../components/Onboarding';
 import FocusButton from '../../components/FocusButton';
@@ -13,13 +14,14 @@ import styles from './styles';
 
 const Login = () => {
 
-    const scroll = useRef() as React.RefObject<ScrollView>;
+    const navigation = useNavigation();
+    
+    const scrollRef = useRef() as React.RefObject<ScrollView>;
 
     const [firstLaunch, setFirstLaunch] = useState<boolean>();
     const [email, setEmail] = useState<string>();
     const [emailFocus, setEmailFocus] = useState<boolean>(false);
-    const [pass, setPass] = useState<string>();
-    const [seeHidePass, setSeeHidePass] = useState<boolean>(true);
+    const [pass, setPass] = useState<string>();    
     const [passFocus, setPassFocus] = useState<boolean>(false);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
 
@@ -36,12 +38,12 @@ const Login = () => {
 
     useEffect(() => {
         Keyboard.addListener("keyboardDidShow",
-            () => { scroll.current && scroll.current.scrollToEnd() }
+            () => { scrollRef.current && scrollRef.current.scrollToEnd() }
         );
-    }, [])
+    }, []);
 
-    const handleCheck = () => {
-        rememberMe ? setRememberMe(false) : setRememberMe(true);
+    const handleNavigateToRegister = () => {
+        navigation.navigate('Register');
     }
 
     if (firstLaunch === null) {
@@ -50,14 +52,21 @@ const Login = () => {
         return (<Onboarding />);
     } else {
         return (
-            <ScrollView ref={scroll} style={styles.container} >
+            <ScrollView
+                ref={scrollRef}
+                style={styles.container}
+                keyboardShouldPersistTaps={"always"}
+                scrollEnabled={false}
+            >
                 <View style={styles.header}>
                     <Image style={styles.headerImg} source={login} resizeMode="contain" />
                 </View>
-                <ScrollView style={styles.loginForm}>
+                <View style={styles.loginForm}>
                     <View style={styles.titleAndCreateBlock}>
                         <Text style={styles.title}>Fazer login</Text>
-                        <TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback
+                            onPress={handleNavigateToRegister}
+                        >
                             <Text style={styles.createAccountButtonText}>Criar uma conta</Text>
                         </TouchableWithoutFeedback>
                     </View>
@@ -78,8 +87,7 @@ const Login = () => {
                             focus={passFocus}
                             value={pass}
                             onChangeText={text => setPass(text)}
-                            secureTextEntry={seeHidePass}
-                            seeHidePass={() => seeHidePass? setSeeHidePass(false): setSeeHidePass(true)}
+                            secureTextEntry={true}
                             onFocus={() => setPassFocus(true)}
                             onBlur={() => setPassFocus(false)}
                         />
@@ -88,7 +96,7 @@ const Login = () => {
                         <CheckBoxStyled
                             check={rememberMe}
                             text="Lembrar-me"
-                            onPress={handleCheck}
+                            onPress={() => setRememberMe(!rememberMe)}
                         />
                         <TouchableWithoutFeedback>
                             <Text style={styles.forgetPassButtonText}>Esqueci minha senha</Text>
@@ -99,7 +107,7 @@ const Login = () => {
                         bgColor={email && pass ? '#04D361' : '#DCDCE5'}
                         textColor={email && pass ? '#FFF' : '#9C98A6'}
                     />
-                </ScrollView>
+                </View>
             </ScrollView>
         )
     }

@@ -1,55 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { View, Text, TextInput, Image, StyleProp, TextStyle, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TextInput, Image, TouchableWithoutFeedback, TextInputProps } from 'react-native';
 
 import seePassword from '../../assets/images/icons/see-password.png';
 import hidePassword from '../../assets/images/icons/hide-password.png';
 
 import styles from './styles';
 
-interface TextFieldProps {
-    style?: StyleProp<TextStyle>;
+interface TextFieldProps extends TextInputProps {
     label?: String;
-    focus: Boolean;
-    keyboardType?: "default" | "email-address" | "numeric" | "phone-pad" | "number-pad" | "decimal-pad" | "visible-password" | "ascii-capable" | "numbers-and-punctuation" | "url" | "name-phone-pad" | "twitter" | "web-search" | undefined;
-    value: string | undefined;
-    onChangeText?: (text: string) => void;
-    onFocus?: () => void;
-    onBlur?: () => void;
-    secureTextEntry?: boolean;
-    seeHidePass?: () => void;
+    focus: Boolean;    
 }
 
-const TextField: React.FC<TextFieldProps> = ({ style, label, focus, value, onChangeText, onFocus, onBlur, keyboardType, secureTextEntry, seeHidePass }) => {
-    
+const TextField: React.FC<TextFieldProps> = (props) => {
+
+    const [hidePass, setHidePass] = useState<boolean>(true);
+
     return (
-        <View style={[styles.container, style]}>
+        <View style={[styles.container, props.style]}>
             <Text
                 style={[
                     styles.placeHolder,
-                    focus || value ? styles.placeHolderFocus : {}
+                    props.focus || props.value ? styles.placeHolderFocus : {}
                 ]}
             >
-                {label}
+                {props.label}
             </Text>
-            {focus && <View style={styles.dash} />}
+            {props.focus && <View style={styles.dash} />}
             <TextInput
-                style={[styles.input, focus || value ? styles.inputFocus : {}]}
-                value={value}
-                onChangeText={onChangeText}
-                keyboardType={keyboardType}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                secureTextEntry={secureTextEntry}
+                style={[styles.input, props.focus || props.value ? styles.inputFocus : {}]}
+                value={props.value}
+                onChangeText={props.onChangeText}
+                keyboardType={props.keyboardType}
+                onFocus={props.onFocus}
+                onBlur={props.onBlur}
+                secureTextEntry={props.secureTextEntry && hidePass}
+                autoCorrect={false}
             />
-            {secureTextEntry != undefined &&
+            {props.secureTextEntry &&
                 <TouchableWithoutFeedback
-                    onPress={seeHidePass}
+                    onPress={() => hidePass ? setHidePass(false) : setHidePass(true)}
                 >
                     <Image
                         style={styles.seeHidePass}
                         source={
-                            secureTextEntry == true
+                            hidePass == true
                                 ? seePassword
                                 : hidePassword
                         }

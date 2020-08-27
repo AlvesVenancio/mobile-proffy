@@ -1,20 +1,26 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton, RectButtonProperties } from 'react-native-gesture-handler';
 
 import styles from './styles';
 
-interface FocusButtonProps{
+interface FocusButtonProps extends RectButtonProperties {
     text: string;
     bgColor: string;
     textColor: string;
-    onPress?: (pointerInside: boolean) => void;
 };
 
-const FocusButton: React.FC<FocusButtonProps> = ({ text, bgColor, textColor, onPress }) => {
+const FocusButton: React.FC<FocusButtonProps> = (props) => {
     return (
-        <RectButton style={[styles.loginButton, { backgroundColor: bgColor}]} onPress={onPress}>
-            <Text style={[styles.loginButtonText, { color: textColor }]}>{ text }</Text>
+        <RectButton
+            style={[
+                styles.loginButton,
+                props.style,
+                { backgroundColor: props.bgColor }
+            ]}
+            onPress={props.onPress}
+        >
+            <Text style={[styles.loginButtonText, { color: props.textColor }]}>{props.text}</Text>
         </RectButton>
     );
 }
