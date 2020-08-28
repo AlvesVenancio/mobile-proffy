@@ -13,12 +13,12 @@ interface FocusButtonProps extends RectButtonProperties {
 const FocusButton: React.FC<FocusButtonProps> = (props) => {
     return (
         <RectButton
+            {...props}
             style={[
                 styles.loginButton,
                 props.style,
                 { backgroundColor: props.bgColor }
             ]}
-            onPress={props.onPress}
         >
             <Text style={[styles.loginButtonText, { color: props.textColor }]}>{props.text}</Text>
         </RectButton>
