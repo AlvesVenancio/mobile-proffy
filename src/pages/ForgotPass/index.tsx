@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Image, View, Text, KeyboardAvoidingView } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
 
 import TextField from '../../components/TextField';
 import FocusButton from '../../components/FocusButton';
@@ -39,7 +38,6 @@ const ForgotPass = () => {
             contentContainerStyle={styles.container}
             scrollEnabled={false}
         >
-            <StatusBar style="light" backgroundColor="#8257E5" />
             <KeyboardAvoidingView
                 behavior="padding"
             >
